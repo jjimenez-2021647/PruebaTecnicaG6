@@ -3,8 +3,19 @@ import { success } from '../utils/responses.js';
 
 export async function listEvents(req, res, next) {
   try {
-    const events = await eventService.listEvents();
-    return success(res, 200, 'Eventos obtenidos correctamente', events);
+    const { events, pagination } = await eventService.listEvents(req.query);
+    return success(res, 200, 'Eventos obtenidos correctamente', events, {
+      pagination,
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function getEventCapacity(req, res, next) {
+  try {
+    const capacity = await eventService.getEventCapacity(req.params.id);
+    return success(res, 200, 'Capacidad obtenida correctamente', capacity);
   } catch (error) {
     return next(error);
   }

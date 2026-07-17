@@ -863,6 +863,89 @@ input {
   right: 12px;
 }
 
+.filter-panel {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(4, minmax(110px, 1fr)) auto auto;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid var(--ink);
+  padding: 12px;
+  background: var(--white);
+}
+
+.filter-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  border: 1px solid var(--line);
+  padding: 0 12px;
+  background: var(--paper);
+}
+
+.filter-input input,
+.plain-input {
+  height: 46px;
+  border: 1px solid var(--line);
+  padding: 0 12px;
+  background: var(--paper);
+  color: var(--ink);
+  outline: none;
+}
+
+.filter-input input {
+  border: 0;
+  padding: 0;
+}
+
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.explore-card {
+  display: grid;
+  min-height: 220px;
+  align-content: space-between;
+  border: 1px solid var(--ink);
+  padding: 20px;
+  background: var(--white);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.explore-card span,
+.explore-card p {
+  color: var(--slate);
+}
+
+.explore-card h2 {
+  margin: 20px 0;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.explore-card div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.pagination-bar span {
+  color: var(--slate);
+  font-weight: 800;
+}
+
 @keyframes ambient-turn {
   from {
     transform: rotate(9deg) translate3d(0, 0, 0);
@@ -931,6 +1014,11 @@ input {
   }
 
   .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-panel,
+  .explore-grid {
     grid-template-columns: 1fr;
   }
 }

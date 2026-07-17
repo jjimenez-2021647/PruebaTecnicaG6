@@ -9,6 +9,25 @@ export async function listEventsRequest() {
   return unwrap(response);
 }
 
+export async function searchEventsRequest(params = {}) {
+  const response = await eventsHttp.get('/events', { params });
+
+  return {
+    events: response?.data?.data || [],
+    pagination: response?.data?.pagination || {
+      page: 1,
+      limit: 10,
+      totalItems: 0,
+      totalPages: 0,
+    },
+  };
+}
+
+export async function getEventCapacityRequest(id) {
+  const response = await eventsHttp.get(`/events/${id}/capacity`);
+  return unwrap(response);
+}
+
 export async function getEventRequest(id) {
   const response = await eventsHttp.get(`/events/${id}`);
   return unwrap(response);

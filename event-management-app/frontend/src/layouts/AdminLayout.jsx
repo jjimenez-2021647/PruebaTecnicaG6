@@ -19,10 +19,10 @@ export function AdminLayout({ children }) {
             <Ticket size={18} strokeWidth={1.8} />
             Eventos
           </NavLink>
-          <span className="nav-disabled">
+          <NavLink to="/events/explore">
             <Search size={18} strokeWidth={1.8} />
             Busqueda
-          </span>
+          </NavLink>
           <span className="nav-disabled">
             <UsersRound size={18} strokeWidth={1.8} />
             Inscripciones

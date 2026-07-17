@@ -1,6 +1,6 @@
 # Event Management App
 
-Sistema distribuido para administracion de eventos. Esta entrega cubre Integrante 1 e Integrante 2: autenticacion, base JWT compartida, CRUD de eventos y administracion frontend de eventos.
+Sistema distribuido para administracion de eventos. Esta entrega cubre Integrantes 1, 2 y 3: autenticacion, CRUD de eventos, administracion frontend y busqueda avanzada.
 
 ## Arquitectura actual
 
@@ -175,6 +175,7 @@ Endpoints:
 
 - `GET /api/v1/events` publico.
 - `GET /api/v1/events/:id` publico.
+- `GET /api/v1/events/:id/capacity` publico.
 - `POST /api/v1/events` protegido con JWT.
 - `PUT /api/v1/events/:id` protegido con JWT.
 - `DELETE /api/v1/events/:id` protegido con JWT.
@@ -201,6 +202,8 @@ Reglas:
 - La eliminacion consulta `REGISTRATIONS_SERVICE_URL` cuando este configurado y bloquea si hay inscripciones activas.
 - Si se reduce capacidad y existe servicio de inscripciones, se bloquea cuando la nueva capacidad sea menor a inscripciones activas.
 - `GET /events` queda publico para exploracion; escritura requiere JWT.
+- `GET /events` acepta `search`, `name`, `date`, `place`, `status`, `page`, `limit`, `sortBy` y `order`.
+- La paginacion devuelve `pagination` con `page`, `limit`, `totalItems` y `totalPages`.
 
 ## Frontend de eventos
 
@@ -210,8 +213,11 @@ Rutas protegidas:
 - `/events/new`
 - `/events/:id`
 - `/events/:id/edit`
+- `/events/explore`
 
 Incluye listado, detalle, crear, editar, eliminar con modal de confirmacion, estados de carga, estado vacio, errores y notificaciones.
+
+La vista `/events/explore` agrega busqueda por nombre con debounce, filtros por fecha/lugar/estado, ordenamiento, paginacion y sincronizacion con query params.
 
 ## Division de trabajo
 
@@ -249,8 +255,9 @@ Terminado:
 - Frontend de autenticacion implementado.
 - Middleware JWT compartido creado para futuros servicios.
 - Integrante 2: CRUD de eventos y administracion frontend.
+- Integrante 3: filtros, paginacion, ordenamiento y exploracion frontend.
 
 Pendiente para confirmar antes de continuar:
 
-- Integrante 3: busqueda avanzada de eventos y exploracion con filtros.
+- Integrante 4: inscripciones y gestion frontend de asistentes.
 

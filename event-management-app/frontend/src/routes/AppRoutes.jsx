@@ -3,6 +3,7 @@ import { ProtectedRoute } from './ProtectedRoute.jsx';
 import { AdminLayout } from '../layouts/AdminLayout.jsx';
 import { DashboardPage } from '../pages/DashboardPage.jsx';
 import { EventDetailPage } from '../pages/EventDetailPage.jsx';
+import { EventExplorePage } from '../pages/EventExplorePage.jsx';
 import { EventFormPage } from '../pages/EventFormPage.jsx';
 import { EventsListPage } from '../pages/EventsListPage.jsx';
 import { ForgotPasswordPage } from '../pages/ForgotPasswordPage.jsx';
@@ -49,6 +50,16 @@ export function AppRoutes() {
           <ProtectedRoute>
             <AdminLayout>
               <EventFormPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/events/explore"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <EventExplorePage />
             </AdminLayout>
           </ProtectedRoute>
         }

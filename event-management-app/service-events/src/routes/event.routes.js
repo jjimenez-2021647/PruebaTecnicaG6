@@ -11,6 +11,12 @@ import {
 const router = Router();
 
 router.get('/', eventController.listEvents);
+router.get(
+  '/:id/capacity',
+  idParamValidator,
+  validateRequest,
+  eventController.getEventCapacity
+);
 router.get('/:id', idParamValidator, validateRequest, eventController.getEvent);
 router.post(
   '/',
