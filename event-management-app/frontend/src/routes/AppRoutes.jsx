@@ -5,6 +5,7 @@ import { DashboardPage } from '../pages/DashboardPage.jsx';
 import { EventDetailPage } from '../pages/EventDetailPage.jsx';
 import { EventExplorePage } from '../pages/EventExplorePage.jsx';
 import { EventFormPage } from '../pages/EventFormPage.jsx';
+import { EventReportPage } from '../pages/EventReportPage.jsx';
 import { EventsListPage } from '../pages/EventsListPage.jsx';
 import { ForgotPasswordPage } from '../pages/ForgotPasswordPage.jsx';
 import { LoginPage } from '../pages/LoginPage.jsx';
@@ -13,6 +14,7 @@ import { ResendVerificationPage } from '../pages/ResendVerificationPage.jsx';
 import { RegisterPage } from '../pages/RegisterPage.jsx';
 import { RegistrationsPage } from '../pages/RegistrationsPage.jsx';
 import { ResetPasswordPage } from '../pages/ResetPasswordPage.jsx';
+import { SummaryPage } from '../pages/SummaryPage.jsx';
 import { VerifyEmailPage } from '../pages/VerifyEmailPage.jsx';
 
 export function AppRoutes() {
@@ -91,6 +93,36 @@ export function AppRoutes() {
           <ProtectedRoute>
             <AdminLayout>
               <RegistrationsPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/availability"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <EventReportPage type="available" />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/full-events"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <EventReportPage type="full" />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/summary"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <SummaryPage />
             </AdminLayout>
           </ProtectedRoute>
         }

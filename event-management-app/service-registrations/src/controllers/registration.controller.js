@@ -1,4 +1,5 @@
 import * as registrationService from '../services/registration.service.js';
+import * as reportService from '../services/report.service.js';
 import { success } from '../utils/responses.js';
 
 export async function listRegistrations(req, res, next) {
@@ -39,6 +40,33 @@ export async function getAttendees(req, res, next) {
     return success(res, 200, 'Asistentes obtenidos correctamente', data.attendees, {
       occupancy: data.occupancy,
     });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function getAvailableEvents(req, res, next) {
+  try {
+    const data = await reportService.availableEvents();
+    return success(res, 200, 'Eventos disponibles obtenidos correctamente', data);
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function getFullEvents(req, res, next) {
+  try {
+    const data = await reportService.fullEvents();
+    return success(res, 200, 'Eventos llenos obtenidos correctamente', data);
+  } catch (error) {
+    return next(error);
+  }
+}
+
+export async function getSummary(req, res, next) {
+  try {
+    const data = await reportService.buildReport();
+    return success(res, 200, 'Resumen obtenido correctamente', data);
   } catch (error) {
     return next(error);
   }

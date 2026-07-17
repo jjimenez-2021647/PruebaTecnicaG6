@@ -1,5 +1,14 @@
 import { Link, NavLink } from 'react-router-dom';
-import { LogOut, PanelsTopLeft, Search, Ticket, UsersRound } from 'lucide-react';
+import {
+  BarChart3,
+  CircleGauge,
+  ClipboardCheck,
+  LogOut,
+  PanelsTopLeft,
+  Search,
+  Ticket,
+  UsersRound,
+} from 'lucide-react';
 import { BrandMark } from '../components/BrandMark.jsx';
 import { useAuth } from '../hooks/useAuth.js';
 
@@ -26,6 +35,18 @@ export function AdminLayout({ children }) {
           <NavLink to="/registrations">
             <UsersRound size={18} strokeWidth={1.8} />
             Inscripciones
+          </NavLink>
+          <NavLink to="/availability">
+            <ClipboardCheck size={18} strokeWidth={1.8} />
+            Disponibles
+          </NavLink>
+          <NavLink to="/full-events">
+            <CircleGauge size={18} strokeWidth={1.8} />
+            Llenos
+          </NavLink>
+          <NavLink to="/summary">
+            <BarChart3 size={18} strokeWidth={1.8} />
+            Resumen
           </NavLink>
         </nav>
         <button className="logout-button" type="button" onClick={logout}>

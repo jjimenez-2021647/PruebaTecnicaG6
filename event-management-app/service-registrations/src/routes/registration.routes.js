@@ -16,6 +16,9 @@ router.get('/registrations', listRegistrationValidator, validateRequest, control
 router.post('/registrations', createRegistrationValidator, validateRequest, controller.createRegistration);
 router.delete('/registrations/:id', idParamValidator, validateRequest, controller.cancelRegistration);
 router.patch('/registrations/:id/cancel', idParamValidator, validateRequest, controller.cancelRegistration);
+router.get('/events/available', controller.getAvailableEvents);
+router.get('/events/full', controller.getFullEvents);
+router.get('/summary', controller.getSummary);
 router.get('/events/:id/attendees', eventParamValidator, validateRequest, controller.getAttendees);
 
 export default router;

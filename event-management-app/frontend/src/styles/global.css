@@ -995,6 +995,160 @@ input {
   color: var(--slate);
 }
 
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.metric-card {
+  display: grid;
+  min-height: 164px;
+  align-content: space-between;
+  border: 1px solid var(--ink);
+  padding: 20px;
+  background: var(--white);
+}
+
+.metric-card span,
+.report-card span,
+.report-row span,
+.section-title span,
+.report-foot span {
+  color: var(--slate);
+}
+
+.metric-card strong {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  font-weight: 400;
+  line-height: 0.95;
+}
+
+.dashboard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.report-panel {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+}
+
+.section-title strong {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.report-list {
+  display: grid;
+  gap: 10px;
+}
+
+.report-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.4fr) minmax(190px, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  border: 1px solid var(--ink);
+  padding: 14px;
+  background: var(--white);
+}
+
+.report-row strong,
+.report-row span {
+  display: block;
+}
+
+.progress-cell {
+  display: grid;
+  gap: 8px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #2f6f4f;
+}
+
+.report-page {
+  display: grid;
+  gap: 18px;
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.report-card {
+  display: grid;
+  gap: 16px;
+  border: 1px solid var(--ink);
+  padding: 20px;
+  background: var(--white);
+}
+
+.report-card-head,
+.report-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.report-card-head strong,
+.report-foot strong {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.report-card h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.report-meta {
+  display: grid;
+  gap: 8px;
+}
+
+.report-meta span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.summary-row {
+  grid-template-columns:
+    minmax(180px, 1.6fr) minmax(120px, 1fr) minmax(90px, 0.7fr) minmax(90px, 0.7fr)
+    minmax(80px, 0.6fr) minmax(110px, 0.7fr);
+}
+
 @keyframes ambient-turn {
   from {
     transform: rotate(9deg) translate3d(0, 0, 0);
@@ -1068,9 +1222,13 @@ input {
 
   .filter-panel,
   .explore-grid,
+  .metric-grid,
+  .report-grid,
   .registration-layout,
   .capacity-strip,
-  .attendee-list article {
+  .attendee-list article,
+  .report-row,
+  .summary-row {
     grid-template-columns: 1fr;
   }
 }
