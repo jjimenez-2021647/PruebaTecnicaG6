@@ -4,8 +4,8 @@ function unwrap(response) {
   return response?.data?.data ?? response?.data;
 }
 
-export async function listEventsRequest() {
-  const response = await eventsHttp.get('/events');
+export async function listEventsRequest(params) {
+  const response = await eventsHttp.get('/events', { params });
   return unwrap(response);
 }
 
@@ -34,13 +34,39 @@ export async function getEventRequest(id) {
 }
 
 export async function createEventRequest(payload) {
-  const response = await eventsHttp.post('/events', payload);
+  const body = buildEventBody(payload);
+  const response = await eventsHttp.post('/events', body, getEventRequestConfig(body));
   return unwrap(response);
 }
 
 export async function updateEventRequest(id, payload) {
-  const response = await eventsHttp.put(`/events/${id}`, payload);
+  const body = buildEventBody(payload);
+  const response = await eventsHttp.put(`/events/${id}`, body, getEventRequestConfig(body));
   return unwrap(response);
+}
+
+function buildEventBody(payload) {
+  if (!payload?.eventImage) return payload;
+
+  const formData = new FormData();
+  Object.entries(payload).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === '') return;
+    if (key === 'eventImage') {
+      formData.append('eventImage', value);
+      return;
+    }
+    formData.append(key, String(value));
+  });
+
+  return formData;
+}
+
+function getEventRequestConfig(body) {
+  if (body instanceof FormData) {
+    return { headers: { 'Content-Type': 'multipart/form-data' } };
+  }
+
+  return undefined;
 }
 
 export async function deleteEventRequest(id) {

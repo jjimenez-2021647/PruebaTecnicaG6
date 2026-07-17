@@ -55,6 +55,9 @@ export function EventDetailPage() {
 
       {!isLoading && event ? (
         <article className="event-detail">
+          {event.imageUrl ? (
+            <img className="event-detail-image" src={event.imageUrl} alt={event.name} />
+          ) : null}
           <header>
             <div>
               <p className="eyebrow">Detalle</p>

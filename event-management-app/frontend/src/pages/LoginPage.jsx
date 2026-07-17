@@ -6,6 +6,7 @@ import { Button } from '../components/Button.jsx';
 import { Field } from '../components/Field.jsx';
 import { AuthLayout } from '../layouts/AuthLayout.jsx';
 import { useAuth } from '../hooks/useAuth.js';
+import { getHomePathForUser } from '../utils/roles.js';
 
 const initialValues = {
   emailOrUsername: '',
@@ -35,7 +36,7 @@ export function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || '/dashboard';
+  const from = location.state?.from?.pathname;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -62,7 +63,7 @@ export function LoginPage() {
       return;
     }
 
-    navigate(from, { replace: true });
+    navigate(from || getHomePathForUser(result.session.user), { replace: true });
   };
 
   return (

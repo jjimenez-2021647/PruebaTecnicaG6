@@ -1,5 +1,6 @@
 import * as eventService from '../services/event.service.js';
 import { success } from '../utils/responses.js';
+import { buildEventImageUrl } from '../middlewares/upload.middleware.js';
 
 export async function listEvents(req, res, next) {
   try {
@@ -32,7 +33,10 @@ export async function getEvent(req, res, next) {
 
 export async function createEvent(req, res, next) {
   try {
-    const event = await eventService.createEvent(req.body, req.auth);
+    const event = await eventService.createEvent(
+      { ...req.body, imageUrl: buildEventImageUrl(req) || req.body.imageUrl },
+      req.auth
+    );
     return success(res, 201, 'Evento creado correctamente', event);
   } catch (error) {
     return next(error);
@@ -41,7 +45,10 @@ export async function createEvent(req, res, next) {
 
 export async function updateEvent(req, res, next) {
   try {
-    const event = await eventService.updateEvent(req.params.id, req.body);
+    const event = await eventService.updateEvent(req.params.id, {
+      ...req.body,
+      ...(req.file ? { imageUrl: buildEventImageUrl(req) } : {}),
+    });
     return success(res, 200, 'Evento actualizado correctamente', event);
   } catch (error) {
     return next(error);
@@ -50,7 +57,7 @@ export async function updateEvent(req, res, next) {
 
 export async function deleteEvent(req, res, next) {
   try {
-    const event = await eventService.deleteEvent(req.params.id);
+    const event = await eventService.deleteEvent(req.params.id, req.auth);
     return success(res, 200, 'Evento eliminado correctamente', event);
   } catch (error) {
     return next(error);

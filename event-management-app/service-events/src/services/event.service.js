@@ -99,8 +99,11 @@ export async function updateEvent(id, payload) {
   return currentEvent;
 }
 
-export async function deleteEvent(id) {
+export async function deleteEvent(id, auth) {
   const event = await getEventById(id);
+  if (String(event.createdBy || '') !== String(auth?.userId || '')) {
+    throw new AppError('Solo puedes eliminar eventos creados por tu usuario', 403);
+  }
   await assertNoActiveRegistrations(id);
   await event.deleteOne();
   return event;

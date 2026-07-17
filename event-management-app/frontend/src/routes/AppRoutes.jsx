@@ -1,6 +1,8 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute.jsx';
+import { HomeRedirect, RoleRoute } from './RoleRoute.jsx';
 import { AdminLayout } from '../layouts/AdminLayout.jsx';
+import { AdminRecordsPage } from '../pages/AdminRecordsPage.jsx';
 import { DashboardPage } from '../pages/DashboardPage.jsx';
 import { EventDetailPage } from '../pages/EventDetailPage.jsx';
 import { EventExplorePage } from '../pages/EventExplorePage.jsx';
@@ -10,17 +12,26 @@ import { EventsListPage } from '../pages/EventsListPage.jsx';
 import { ForgotPasswordPage } from '../pages/ForgotPasswordPage.jsx';
 import { LoginPage } from '../pages/LoginPage.jsx';
 import { NotFoundPage } from '../pages/NotFoundPage.jsx';
+import { ProfilePage } from '../pages/ProfilePage.jsx';
 import { ResendVerificationPage } from '../pages/ResendVerificationPage.jsx';
 import { RegisterPage } from '../pages/RegisterPage.jsx';
 import { RegistrationsPage } from '../pages/RegistrationsPage.jsx';
 import { ResetPasswordPage } from '../pages/ResetPasswordPage.jsx';
 import { SummaryPage } from '../pages/SummaryPage.jsx';
 import { VerifyEmailPage } from '../pages/VerifyEmailPage.jsx';
+import { adminOnly, userOnly } from '../utils/roles.js';
 
 export function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <HomeRedirect />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/verify-email" element={<VerifyEmailPage />} />
@@ -32,7 +43,9 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminLayout>
-              <DashboardPage />
+              <RoleRoute allow={userOnly}>
+                <DashboardPage />
+              </RoleRoute>
             </AdminLayout>
           </ProtectedRoute>
         }
@@ -42,7 +55,9 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminLayout>
-              <EventsListPage />
+              <RoleRoute allow={userOnly}>
+                <EventsListPage />
+              </RoleRoute>
             </AdminLayout>
           </ProtectedRoute>
         }
@@ -52,7 +67,9 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminLayout>
-              <EventFormPage />
+              <RoleRoute allow={userOnly}>
+                <EventFormPage />
+              </RoleRoute>
             </AdminLayout>
           </ProtectedRoute>
         }
@@ -62,7 +79,9 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminLayout>
-              <EventExplorePage />
+              <RoleRoute allow={userOnly}>
+                <EventExplorePage />
+              </RoleRoute>
             </AdminLayout>
           </ProtectedRoute>
         }
@@ -72,7 +91,9 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminLayout>
-              <EventDetailPage />
+              <RoleRoute allow={userOnly}>
+                <EventDetailPage />
+              </RoleRoute>
             </AdminLayout>
           </ProtectedRoute>
         }
@@ -82,7 +103,9 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminLayout>
-              <EventFormPage />
+              <RoleRoute allow={userOnly}>
+                <EventFormPage />
+              </RoleRoute>
             </AdminLayout>
           </ProtectedRoute>
         }
@@ -92,7 +115,31 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminLayout>
-              <RegistrationsPage />
+              <RoleRoute allow={userOnly}>
+                <RegistrationsPage />
+              </RoleRoute>
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/records"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <RoleRoute allow={adminOnly}>
+                <AdminRecordsPage />
+              </RoleRoute>
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <ProfilePage />
             </AdminLayout>
           </ProtectedRoute>
         }
@@ -102,7 +149,9 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminLayout>
-              <EventReportPage type="available" />
+              <RoleRoute allow={userOnly}>
+                <EventReportPage type="available" />
+              </RoleRoute>
             </AdminLayout>
           </ProtectedRoute>
         }
@@ -112,7 +161,9 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminLayout>
-              <EventReportPage type="full" />
+              <RoleRoute allow={userOnly}>
+                <EventReportPage type="full" />
+              </RoleRoute>
             </AdminLayout>
           </ProtectedRoute>
         }
@@ -122,7 +173,9 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminLayout>
-              <SummaryPage />
+              <RoleRoute allow={userOnly}>
+                <SummaryPage />
+              </RoleRoute>
             </AdminLayout>
           </ProtectedRoute>
         }
@@ -132,7 +185,9 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <AdminLayout>
-              <RegistrationsPage />
+              <RoleRoute allow={userOnly}>
+                <RegistrationsPage />
+              </RoleRoute>
             </AdminLayout>
           </ProtectedRoute>
         }

@@ -159,6 +159,9 @@ export function EventExplorePage() {
       <div className="explore-grid">
         {events.map((event) => (
           <Link className="explore-card" key={event.id} to={`/events/${event.id}`}>
+            {event.imageUrl ? (
+              <img className="explore-card-image" src={event.imageUrl} alt={event.name} />
+            ) : null}
             <span>{formatEventDate(event.date)}</span>
             <h2>{event.name}</h2>
             <p>{event.place}</p>

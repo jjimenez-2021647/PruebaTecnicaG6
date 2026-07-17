@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, CalendarDays, MapPin, Text, Users } from 'lucide-react';
+import { ArrowLeft, CalendarDays, Camera, Image, MapPin, Text, Users } from 'lucide-react';
 import { Alert } from '../components/Alert.jsx';
 import { Button } from '../components/Button.jsx';
 import { Field } from '../components/Field.jsx';
@@ -43,6 +43,8 @@ export function EventFormPage() {
   const [serverError, setServerError] = useState(null);
   const [isLoading, setIsLoading] = useState(isEditing);
   const [isSaving, setIsSaving] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
 
   const title = useMemo(
     () => (isEditing ? 'Editar evento' : 'Crear evento'),
@@ -62,6 +64,7 @@ export function EventFormPage() {
           description: event.description || '',
           status: event.status || 'active',
         });
+        setImagePreview(event.imageUrl || '');
       })
       .catch((requestError) => setServerError(normalizeEventError(requestError)))
       .finally(() => setIsLoading(false));
@@ -72,6 +75,13 @@ export function EventFormPage() {
     setValues((current) => ({ ...current, [name]: value }));
     setErrors((current) => ({ ...current, [name]: undefined }));
   };
+
+  useEffect(() => {
+    if (!imageFile) return undefined;
+    const nextPreview = URL.createObjectURL(imageFile);
+    setImagePreview(nextPreview);
+    return () => URL.revokeObjectURL(nextPreview);
+  }, [imageFile]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -88,6 +98,7 @@ export function EventFormPage() {
       capacity: Number(values.capacity),
       description: values.description.trim(),
       status: values.status,
+      eventImage: imageFile,
     };
 
     setIsSaving(true);
@@ -189,6 +200,28 @@ export function EventFormPage() {
               onChange={handleChange}
             />
           </label>
+          <section className="event-image-field">
+            <div className="event-image-preview">
+              {imagePreview ? (
+                <img src={imagePreview} alt="Vista previa del evento" />
+              ) : (
+                <div>
+                  <Image size={40} strokeWidth={1.5} />
+                  <span>Sin imagen seleccionada</span>
+                </div>
+              )}
+            </div>
+            <label className="file-picker" htmlFor="eventImage">
+              <Camera size={20} strokeWidth={1.8} />
+              <span>{imageFile?.name || 'Seleccionar imagen del evento'}</span>
+              <input
+                id="eventImage"
+                type="file"
+                accept="image/*"
+                onChange={(event) => setImageFile(event.target.files?.[0] || null)}
+              />
+            </label>
+          </section>
           <Button type="submit" isLoading={isSaving}>
             Guardar evento
           </Button>

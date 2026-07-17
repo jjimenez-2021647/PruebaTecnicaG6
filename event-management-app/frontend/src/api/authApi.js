@@ -15,6 +15,40 @@ export async function profileRequest() {
   return data;
 }
 
+export async function updateProfileRequest(payload) {
+  const { data } = await authHttp.put('/profile', payload);
+  return data;
+}
+
+export async function updateProfileImageRequest(file) {
+  const formData = new FormData();
+  formData.append('profilePicture', file);
+  const { data } = await authHttp.put('/profile/image', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return data;
+}
+
+export async function requestUsernameChangeRequest(newUsername) {
+  const { data } = await authHttp.put('/profile/username', { newUsername });
+  return data;
+}
+
+export async function confirmUsernameChangeRequest(token) {
+  const { data } = await authHttp.post('/profile/username/confirm', { token });
+  return data;
+}
+
+export async function requestPhoneChangeRequest(newPhone) {
+  const { data } = await authHttp.put('/profile/phone', { newPhone });
+  return data;
+}
+
+export async function confirmPhoneChangeRequest(token) {
+  const { data } = await authHttp.post('/profile/phone/confirm', { token });
+  return data;
+}
+
 export async function logoutRequest() {
   const { data } = await authHttp.post('/logout');
   return data;

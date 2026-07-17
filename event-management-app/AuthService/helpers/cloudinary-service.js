@@ -2,6 +2,8 @@ import { v2 as cloudinary } from 'cloudinary';
 import { config } from '../configs/config.js';
 import fs from 'fs/promises';
 
+const DEFAULT_USER_ASSET = '/assets/UserDefault.png';
+
 // FIX: Bypass SSL (Cloudinary, etc.)
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
@@ -92,6 +94,16 @@ export const getFullImageUrl = (imagePath) => {
         return imagePath;
     }
 
+    if (imagePath.startsWith('/assets/')) {
+        const frontendUrl = config.app.frontendUrl || 'http://localhost:3000';
+        return `${frontendUrl}${imagePath}`;
+    }
+
+    if (imagePath === 'user_default.png' || imagePath === 'UserDefault.png') {
+        const frontendUrl = config.app.frontendUrl || 'http://localhost:3000';
+        return `${frontendUrl}${DEFAULT_USER_ASSET}`;
+    }
+
     // 3. Si por alguna razón solo es el nombre del archivo, construir la URL (como antes)
     const baseUrl = config.cloudinary.baseUrl;
     const folder = config.cloudinary.folder;
@@ -109,7 +121,10 @@ export const getDefaultAvatarUrl = () => {
     }
 
     const defaultPath = getDefaultAvatarPath();
-    if (!defaultPath) return null;
+    if (!defaultPath) {
+        const frontendUrl = config.app.frontendUrl || 'http://localhost:3000';
+        return `${frontendUrl}${DEFAULT_USER_ASSET}`;
+    }
 
     return getFullImageUrl(defaultPath);
 };
@@ -127,7 +142,7 @@ export const getDefaultAvatarPath = () => {
     if (defaultPath && defaultPath.includes('/')) {
         return defaultPath.split('/').pop();
     }
-    return defaultPath;
+    return defaultPath || DEFAULT_USER_ASSET;
 };
 
 export default {

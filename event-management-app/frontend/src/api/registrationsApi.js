@@ -1,7 +1,8 @@
 import { registrationsHttp } from './http.js';
 
 export async function listRegistrationsRequest(eventId) {
-  const response = await registrationsHttp.get('/registrations', { params: { eventId } });
+  const params = eventId ? { eventId } : undefined;
+  const response = await registrationsHttp.get('/registrations', { params });
   return response.data.data || [];
 }
 

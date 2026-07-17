@@ -14,6 +14,8 @@ export default [
         document: 'readonly',
         window: 'readonly',
         localStorage: 'readonly',
+        FormData: 'readonly',
+        URL: 'readonly',
         requestAnimationFrame: 'readonly',
         cancelAnimationFrame: 'readonly',
         setTimeout: 'readonly',

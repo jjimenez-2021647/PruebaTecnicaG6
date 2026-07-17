@@ -31,6 +31,11 @@ const eventSchema = new mongoose.Schema(
       maxlength: 1200,
       default: '',
     },
+    imageUrl: {
+      type: String,
+      trim: true,
+      default: '',
+    },
     status: {
       type: String,
       enum: EVENT_STATUSES,

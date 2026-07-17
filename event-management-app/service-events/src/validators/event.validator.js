@@ -28,6 +28,11 @@ export const createEventValidator = [
     .trim()
     .isLength({ max: 1200 })
     .withMessage('La descripcion no puede exceder 1200 caracteres'),
+  body('imageUrl')
+    .optional({ values: 'falsy' })
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage('La URL de imagen no puede exceder 500 caracteres'),
   body('status')
     .optional()
     .isIn(EVENT_STATUSES)
@@ -61,6 +66,11 @@ export const updateEventValidator = [
     .trim()
     .isLength({ max: 1200 })
     .withMessage('La descripcion no puede exceder 1200 caracteres'),
+  body('imageUrl')
+    .optional({ values: 'falsy' })
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage('La URL de imagen no puede exceder 500 caracteres'),
   body('status')
     .optional()
     .isIn(EVENT_STATUSES)

@@ -92,6 +92,21 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  const updateSessionUser = useCallback(
+    (nextUser) => {
+      setSession((current) => {
+        if (!current) return current;
+        const nextSession = {
+          ...current,
+          user: { ...(current.user || {}), ...(nextUser || {}) },
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(nextSession));
+        return nextSession;
+      });
+    },
+    []
+  );
+
   const logout = useCallback(async () => {
     try {
       await logoutRequest();
@@ -112,10 +127,20 @@ export function AuthProvider({ children }) {
       notice,
       login,
       register,
+      updateSessionUser,
       logout,
       dismissNotice,
     }),
-    [dismissNotice, isBootstrapping, login, logout, notice, register, session]
+    [
+      dismissNotice,
+      isBootstrapping,
+      login,
+      logout,
+      notice,
+      register,
+      session,
+      updateSessionUser,
+    ]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
