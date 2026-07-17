@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: event-management-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  service-events:
+    build:
+      context: .
+      dockerfile: service-events/Dockerfile
+    container_name: event-management-service-events
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      MONGODB_URI: mongodb://mongodb:27017/event_management_events
+      CORS_ORIGIN: http://localhost:3000
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ISSUER: ${JWT_ISSUER:-BibliotecaAPI}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-BibliotecaAPI}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+      REGISTRATIONS_SERVICE_URL: http://service-registrations:3002/api/v1
+    ports:
+      - "3001:3001"
+
+volumes:
+  mongodb_data:
