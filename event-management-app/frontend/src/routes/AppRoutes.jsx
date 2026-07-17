@@ -11,6 +11,7 @@ import { LoginPage } from '../pages/LoginPage.jsx';
 import { NotFoundPage } from '../pages/NotFoundPage.jsx';
 import { ResendVerificationPage } from '../pages/ResendVerificationPage.jsx';
 import { RegisterPage } from '../pages/RegisterPage.jsx';
+import { RegistrationsPage } from '../pages/RegistrationsPage.jsx';
 import { ResetPasswordPage } from '../pages/ResetPasswordPage.jsx';
 import { VerifyEmailPage } from '../pages/VerifyEmailPage.jsx';
 
@@ -80,6 +81,26 @@ export function AppRoutes() {
           <ProtectedRoute>
             <AdminLayout>
               <EventFormPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/registrations"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <RegistrationsPage />
+            </AdminLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/events/:id/attendees"
+        element={
+          <ProtectedRoute>
+            <AdminLayout>
+              <RegistrationsPage />
             </AdminLayout>
           </ProtectedRoute>
         }

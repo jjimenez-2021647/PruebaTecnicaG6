@@ -31,5 +31,27 @@ services:
     ports:
       - "3001:3001"
 
+  service-registrations:
+    build:
+      context: .
+      dockerfile: service-registrations/Dockerfile
+    container_name: event-management-service-registrations
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+      - service-events
+    environment:
+      NODE_ENV: development
+      PORT: 3002
+      MONGODB_URI: mongodb://mongodb:27017/event_management_registrations
+      CORS_ORIGIN: http://localhost:3000
+      EVENTS_SERVICE_URL: http://service-events:3001/api/v1
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ISSUER: ${JWT_ISSUER:-BibliotecaAPI}
+      JWT_AUDIENCE: ${JWT_AUDIENCE:-BibliotecaAPI}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+    ports:
+      - "3002:3002"
+
 volumes:
   mongodb_data:

@@ -1,6 +1,6 @@
 # Event Management App
 
-Sistema distribuido para administracion de eventos. Esta entrega cubre Integrantes 1, 2 y 3: autenticacion, CRUD de eventos, administracion frontend y busqueda avanzada.
+Sistema distribuido para administracion de eventos. Esta entrega cubre Integrantes 1 a 4: autenticacion, eventos, busqueda avanzada e inscripciones.
 
 ## Arquitectura actual
 
@@ -9,6 +9,8 @@ frontend React/Vite
   -> AuthService HTTP
       -> PostgreSQL
   -> service-events HTTP
+      -> MongoDB
+  -> service-registrations HTTP
       -> MongoDB
 
 shared/auth
@@ -21,7 +23,7 @@ Carpetas:
 - `frontend`: React, React Router, Axios, Context API, Framer Motion, GSAP, Lenis y Lucide SVG icons.
 - `shared/auth`: middleware JWT reutilizable para los servicios siguientes.
 - `service-events`: CRUD de eventos con Node.js, Express, MongoDB, Mongoose y JWT.
-- `service-registrations`: reservado para Integrante 4 y 5.
+- `service-registrations`: inscripciones, cancelacion y asistentes por evento.
 
 ## AuthService detectado
 
@@ -83,6 +85,7 @@ JWT detectado:
 - Frontend: `3000`
 - AuthService: `3006`
 - Events Service: `3001`
+- Registrations Service: `3002`
 - PostgreSQL Docker: `5436:5432`
 - MongoDB: `27017`
 
@@ -105,6 +108,12 @@ Frontend:
 Events Service:
 
 - Ver `service-events/.env.example`.
+- `JWT_SECRET`, `JWT_ISSUER` y `JWT_AUDIENCE` deben coincidir con AuthService.
+
+Registrations Service:
+
+- Ver `service-registrations/.env.example`.
+- `EVENTS_SERVICE_URL` debe apuntar a `service-events`.
 - `JWT_SECRET`, `JWT_ISSUER` y `JWT_AUDIENCE` deben coincidir con AuthService.
 
 ## Ejecucion
@@ -130,6 +139,14 @@ Events Service:
 
 ```bash
 cd event-management-app/service-events
+pnpm install
+pnpm run dev
+```
+
+Registrations Service:
+
+```bash
+cd event-management-app/service-registrations
 pnpm install
 pnpm run dev
 ```
@@ -219,6 +236,36 @@ Incluye listado, detalle, crear, editar, eliminar con modal de confirmacion, est
 
 La vista `/events/explore` agrega busqueda por nombre con debounce, filtros por fecha/lugar/estado, ordenamiento, paginacion y sincronizacion con query params.
 
+## Backend de inscripciones
+
+Base path: `/api/v1`.
+
+Endpoints protegidos con JWT:
+
+- `POST /api/v1/registrations`
+- `GET /api/v1/registrations?eventId=...`
+- `DELETE /api/v1/registrations/:id`
+- `PATCH /api/v1/registrations/:id/cancel`
+- `GET /api/v1/events/:id/attendees`
+
+Reglas:
+
+- Valida que el evento exista consultando `service-events`.
+- No permite duplicar correo activo en el mismo evento.
+- No permite registrar si no hay cupos.
+- Cancelar es logico: cambia estado a `cancelled`.
+- Una inscripcion cancelada libera cupo.
+- Usa contador de ocupacion por evento para evitar sobrepasar capacidad en solicitudes concurrentes.
+
+## Frontend de inscripciones
+
+Rutas protegidas:
+
+- `/registrations`
+- `/events/:id/attendees`
+
+Incluye seleccion de evento, formulario de asistente, capacidad/ocupados/restantes, listado de asistentes y cancelacion con confirmacion.
+
 ## Division de trabajo
 
 Integrante 1:
@@ -256,8 +303,9 @@ Terminado:
 - Middleware JWT compartido creado para futuros servicios.
 - Integrante 2: CRUD de eventos y administracion frontend.
 - Integrante 3: filtros, paginacion, ordenamiento y exploracion frontend.
+- Integrante 4: inscripciones, asistentes y cancelacion logica.
 
 Pendiente para confirmar antes de continuar:
 
-- Integrante 4: inscripciones y gestion frontend de asistentes.
+- Integrante 5: disponibilidad, resumen y dashboard de ocupacion.
 

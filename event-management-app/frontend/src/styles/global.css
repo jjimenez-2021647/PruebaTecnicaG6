@@ -946,6 +946,55 @@ input {
   font-weight: 800;
 }
 
+.registration-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 430px) minmax(0, 1fr);
+  gap: 18px;
+}
+
+.capacity-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.capacity-strip span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  border: 1px solid var(--line);
+  padding: 10px;
+  background: var(--white);
+  color: var(--slate);
+  font-weight: 800;
+}
+
+.attendee-list {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.attendee-list article {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--ink);
+  padding: 14px;
+  background: var(--white);
+}
+
+.attendee-list strong,
+.attendee-list span {
+  display: block;
+}
+
+.attendee-list div span {
+  color: var(--slate);
+}
+
 @keyframes ambient-turn {
   from {
     transform: rotate(9deg) translate3d(0, 0, 0);
@@ -1018,7 +1067,10 @@ input {
   }
 
   .filter-panel,
-  .explore-grid {
+  .explore-grid,
+  .registration-layout,
+  .capacity-strip,
+  .attendee-list article {
     grid-template-columns: 1fr;
   }
 }

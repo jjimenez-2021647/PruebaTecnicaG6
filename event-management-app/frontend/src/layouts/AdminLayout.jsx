@@ -23,10 +23,10 @@ export function AdminLayout({ children }) {
             <Search size={18} strokeWidth={1.8} />
             Busqueda
           </NavLink>
-          <span className="nav-disabled">
+          <NavLink to="/registrations">
             <UsersRound size={18} strokeWidth={1.8} />
             Inscripciones
-          </span>
+          </NavLink>
         </nav>
         <button className="logout-button" type="button" onClick={logout}>
           <LogOut size={18} strokeWidth={1.8} />
