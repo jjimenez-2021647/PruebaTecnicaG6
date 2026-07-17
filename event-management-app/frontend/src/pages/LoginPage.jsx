@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { KeyRound, Mail } from 'lucide-react';
+import { BarChart3, CalendarDays, KeyRound, Mail, UserPlus, UsersRound } from 'lucide-react';
 import { Alert } from '../components/Alert.jsx';
 import { Button } from '../components/Button.jsx';
 import { Field } from '../components/Field.jsx';
@@ -125,6 +125,39 @@ export function LoginPage() {
           No tenes cuenta? <Link to="/register">Crear usuario</Link>
         </p>
       </form>
+
+      <section className="login-roadmap" aria-label="Roadmap de la aplicacion">
+        <div className="section-title">
+          <span>Roadmap rapido</span>
+          <strong>Flujo de uso</strong>
+        </div>
+        <div className="roadmap-steps">
+          <article>
+            <UserPlus size={18} strokeWidth={1.8} />
+            <span>1</span>
+            <strong>Crear cuenta</strong>
+            <p>Registrate, verifica tu correo e inicia sesion.</p>
+          </article>
+          <article>
+            <CalendarDays size={18} strokeWidth={1.8} />
+            <span>2</span>
+            <strong>Crear eventos</strong>
+            <p>Publica eventos con fecha, cupos, lugar e imagen.</p>
+          </article>
+          <article>
+            <UsersRound size={18} strokeWidth={1.8} />
+            <span>3</span>
+            <strong>Unirse</strong>
+            <p>Explora eventos de otros usuarios y participa.</p>
+          </article>
+          <article>
+            <BarChart3 size={18} strokeWidth={1.8} />
+            <span>4</span>
+            <strong>Revisar reportes</strong>
+            <p>Consulta disponibilidad, llenos y registros.</p>
+          </article>
+        </div>
+      </section>
     </AuthLayout>
   );
 }

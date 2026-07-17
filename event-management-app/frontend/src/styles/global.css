@@ -410,6 +410,53 @@ input {
   text-align: center;
 }
 
+.login-roadmap {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+
+.roadmap-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.roadmap-steps article {
+  display: grid;
+  min-height: 132px;
+  align-content: start;
+  gap: 8px;
+  border: 1px solid var(--line);
+  padding: 14px;
+  background: var(--white);
+}
+
+.roadmap-steps article > span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid var(--ink);
+  color: var(--signal);
+  font-weight: 800;
+}
+
+.roadmap-steps strong {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.roadmap-steps p {
+  margin: 0;
+  color: var(--slate);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
 .form-switch a,
 .quiet-link,
 .topbar-link {
@@ -1548,6 +1595,10 @@ input {
   }
 
   .field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .roadmap-steps {
     grid-template-columns: 1fr;
   }
 
